@@ -1,0 +1,12 @@
+[package]
+authors = ["stijn <s.heldens@esciencecenter.nl>"]
+edition = "2021"
+name = "rust-advent-of-code-2021"
+version = "0.1.0"
+
+[dependencies]
+anyhow = "1.0.51"
+fnv = "1.0.7"
+itertools = "0.10.1"
+lazy_static = "1.4.0"
+regex = "1.5.4"

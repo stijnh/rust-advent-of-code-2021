@@ -8,8 +8,7 @@ mod day06;
 
 use common::*;
 use std::env;
-use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::fs::read_to_string;
 use std::path::Path;
 
 fn main() -> Result {
@@ -46,12 +45,9 @@ fn main() -> Result {
         }
     }
 
-    let f = File::open(&input_file).with_context(|| format!("failed to open: {}", input_file))?;
+    let content =
+        read_to_string(&input_file).with_context(|| format!("failed to open: {}", input_file))?;
+    let lines = content.split("\n").collect::<Vec<_>>();
 
-    let lines = BufReader::new(f)
-        .lines()
-        .collect::<Result<_, _>>()
-        .with_context(|| format!("error while reading: {}", input_file))?;
-
-    (funs[day - 1])(lines)
+    (funs[day - 1])(&lines)
 }

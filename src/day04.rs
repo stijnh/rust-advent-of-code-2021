@@ -12,7 +12,7 @@ fn parse_numbers(line: &str) -> Result<Vec<Num>> {
         .collect()
 }
 
-fn parse_cards(lines: &[String]) -> Result<Vec<BingoCard>> {
+fn parse_cards(lines: &[&str]) -> Result<Vec<BingoCard>> {
     let mut cards = vec![];
     let mut lines = lines.iter();
 
@@ -121,10 +121,7 @@ mod tests {
             "18  8 23 26 20",
             "22 11 13  6  5",
             " 2  0 12  3  7",
-        ]
-        .iter()
-        .map(|s| s.to_string())
-        .collect_vec();
+        ];
 
         (parse_numbers(line).unwrap(), parse_cards(&lines).unwrap())
     }

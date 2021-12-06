@@ -86,12 +86,9 @@ mod tests {
             "up 3",
             "down 8",
             "forward 2",
-        ]
-        .iter()
-        .map(|s| s.to_string())
-        .collect();
+        ];
 
-        parse(lines).unwrap()
+        parse(&lines).unwrap()
     }
 
     #[test]

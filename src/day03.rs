@@ -84,12 +84,9 @@ mod tests {
         let lines = [
             "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000",
             "11001", "00010", "01010",
-        ]
-        .iter()
-        .map(|s| s.to_string())
-        .collect();
+        ];
 
-        parse(lines).unwrap()
+        parse(&lines).unwrap()
     }
 
     #[test]
@@ -104,6 +101,6 @@ mod tests {
         let oxy = solve_b(&input(), Rating::Oxygen, 5);
         let co2 = solve_b(&input(), Rating::Co2, 5);
 
-        assert_eq!((oxy, co2), (23, 10));
+        assert_eq!((oxy, co2), (10, 23));
     }
 }

@@ -69,12 +69,9 @@ mod tests {
             "3,4 -> 1,4",
             "0,0 -> 8,8",
             "5,5 -> 8,2",
-        ]
-        .iter()
-        .map(|s| s.to_string())
-        .collect();
+        ];
 
-        parse(lines).unwrap()
+        parse(&lines).unwrap()
     }
 
     #[test]

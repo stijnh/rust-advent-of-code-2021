@@ -1,30 +1,29 @@
 use crate::common::*;
 
-const N: usize = 16;
-type Population = Box<[u128; N]>;
+const N: usize = 9;
+
+#[derive(Default, Clone)]
+struct Population {
+    counts: Box<[u128; N]>,
+    offset: usize,
+}
 
 fn parse_population(line: &str) -> Result<Population> {
     let mut pop = Population::default();
 
     for num in line.split(",") {
         let n: usize = num.parse()?;
-        pop[n] += 1;
+        pop.counts[n] += 1;
     }
 
     Ok(pop)
 }
 
-fn simulate_day(input: Population) -> Population {
-    let mut output = Population::default();
-
-    output[6] += input[0];
-    output[8] += input[0];
-
-    for i in 1..N {
-        output[i - 1] += input[i];
-    }
-
-    output
+fn simulate_day(mut fish: Population) -> Population {
+    let offset = fish.offset;
+    fish.counts[(offset + N - 2) % N] += fish.counts[offset];
+    fish.offset = (offset + 1) % N;
+    fish
 }
 
 fn population_after_days(mut fish: Population, days: usize) -> u128 {
@@ -32,7 +31,7 @@ fn population_after_days(mut fish: Population, days: usize) -> u128 {
         fish = simulate_day(fish);
     }
 
-    fish.iter().sum()
+    fish.counts.iter().sum()
 }
 
 pub(crate) fn run(lines: Lines) -> Result {

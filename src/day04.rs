@@ -6,10 +6,7 @@ type Num = i32;
 type BingoCard = Array2<Num>;
 
 fn parse_numbers(line: &str) -> Result<Vec<Num>> {
-    line.split(",")
-        .filter(|s| !s.is_empty())
-        .map(|s| Ok(s.parse()?))
-        .collect()
+    parse_list(line, ',')
 }
 
 fn parse_cards(lines: &[&str]) -> Result<Vec<BingoCard>> {

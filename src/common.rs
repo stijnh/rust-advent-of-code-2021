@@ -4,8 +4,10 @@ use lazy_static::lazy_static;
 use regex::Regex;
 use std::cmp::{Ord, Ordering};
 use std::default::Default;
+use std::fmt::Display;
 use std::iter::{Map, Sum};
 pub use std::mem::swap;
+use std::str::FromStr;
 use std::sync::Mutex;
 
 pub type HashMap<K, V> = std::collections::HashMap<K, V, fnv::FnvBuildHasher>;
@@ -38,6 +40,20 @@ where
     I::Item: Sum,
 {
     iter.into_iter().sum()
+}
+
+pub fn parse_list<I: FromStr>(line: &str, delim: char) -> Result<Vec<I>>
+where
+    I::Err: Display,
+{
+    line.split(delim)
+        .map(|s| s.trim())
+        .filter(|s| !s.is_empty())
+        .map(|s| match s.parse() {
+            Ok(v) => Ok(v),
+            Err(e) => bail!("failed to parse {:?}: {}", s, e),
+        })
+        .collect()
 }
 
 lazy_static! {

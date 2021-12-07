@@ -11,8 +11,7 @@ struct Population {
 fn parse_population(line: &str) -> Result<Population> {
     let mut pop = Population::default();
 
-    for num in line.split(",") {
-        let n: usize = num.parse()?;
+    for n in parse_list::<usize>(line, ',')? {
         pop.counts[n] += 1;
     }
 

@@ -6,6 +6,7 @@ mod day04;
 mod day05;
 mod day06;
 mod day07;
+mod day08;
 
 use common::*;
 use std::env;
@@ -21,6 +22,7 @@ fn main() -> Result {
         day05::run,
         day06::run,
         day07::run,
+        day08::run,
     ];
 
     let mut args = env::args();
@@ -49,7 +51,7 @@ fn main() -> Result {
 
     let content =
         read_to_string(&input_file).with_context(|| format!("failed to open: {}", input_file))?;
-    let lines = content.split("\n").collect::<Vec<_>>();
+    let lines = content.trim().split("\n").collect::<Vec<_>>();
 
     (funs[day - 1])(&lines)
 }

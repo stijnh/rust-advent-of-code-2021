@@ -82,7 +82,7 @@ fn play_cards_loser(numbers: &[Num], cards: &[BingoCard]) -> Num {
 }
 
 pub(crate) fn run(lines: Lines) -> Result {
-    let numbers = parse_numbers(&lines[0])?;
+    let numbers = parse_numbers(lines[0])?;
     let cards = parse_cards(&lines[2..])?;
 
     let answer = play_cards_winner(&numbers, &cards);

@@ -13,7 +13,7 @@ pub(crate) fn run(lines: Lines) -> Result {
         .iter()
         .map(|s| s.parse::<u32>())
         .collect::<Result<Vec<_>, _>>()
-        .with_context(|| format!("error while parsing input"))?;
+        .with_context(|| "error while parsing input")?;
 
     let n = solve_a(&numbers);
     println!("part A: {}", n);

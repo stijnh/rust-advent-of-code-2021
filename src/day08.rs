@@ -1,15 +1,5 @@
 use crate::common::*;
 
-/*
-2,3,5: 5
-0,6,9: 6
-
-1: 2
-7: 3
-4: 4
-8: 8
-*/
-
 lazy_static::lazy_static! {
     static ref DIGITS: [Sample; 10] = {
         ["abcefg", "cf", "acdeg", "acdfg", "bcdf", "abdfg", "abdefg", "acf", "abcdefg", "abcdfg"]
@@ -32,12 +22,12 @@ fn parse_sample(chars: &str) -> Result<Sample> {
     let mut sample: Sample = default();
 
     for c in chars.chars() {
-        let num = u32::wrapping_sub(c as u32, 'a' as u32);
-        if num > 6 {
+        let num = u32::wrapping_sub(c as u32, 'a' as u32) as usize;
+        if num >= sample.len() {
             bail!("invalid character: {:?}", c);
         }
 
-        sample[num as usize] = true;
+        sample[num] = true;
     }
 
     Ok(sample)
@@ -49,16 +39,16 @@ fn parse_entry(line: &str) -> Result<Entry> {
     let mut inputs: [Sample; 10] = default();
     let mut outputs: [Sample; 4] = default();
 
-    for i in 0..inputs.len() {
-        inputs[i] = parse_sample(iter.next().ok_or_else(err)?)?;
+    for v in &mut inputs {
+        *v = parse_sample(iter.next().ok_or_else(err)?)?;
     }
 
     if iter.next() != Some("|") {
         bail!(err());
     }
 
-    for i in 0..outputs.len() {
-        outputs[i] = parse_sample(iter.next().ok_or_else(err)?)?;
+    for v in &mut outputs {
+        *v = parse_sample(iter.next().ok_or_else(err)?)?;
     }
 
     Ok(Entry { inputs, outputs })
@@ -88,6 +78,7 @@ fn solve_a(entries: &[Entry]) -> usize {
 
 type Mapping = [usize; 7];
 
+#[allow(clippy::needless_range_loop)]
 fn find_mapping(entry: &Entry) -> Mapping {
     let mut table = [[true; 7]; 7];
 
@@ -179,8 +170,8 @@ fn solve_b(entries: &[Entry]) -> usize {
     let mut sum = 0;
 
     for entry in entries {
-        let mapping = find_mapping(&entry);
-        sum += decode_output(&entry, mapping);
+        let mapping = find_mapping(entry);
+        sum += decode_output(entry, mapping);
     }
 
     sum

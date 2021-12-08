@@ -35,7 +35,7 @@ fn main() -> Result {
         bail!("usage: {} [day]", binary);
     };
 
-    if day <= 0 || day > funs.len() {
+    if day == 0 || day > funs.len() {
         bail!("day must be a number between 1 and {}", funs.len());
     }
 
@@ -51,7 +51,7 @@ fn main() -> Result {
 
     let content =
         read_to_string(&input_file).with_context(|| format!("failed to open: {}", input_file))?;
-    let lines = content.trim().split("\n").collect::<Vec<_>>();
+    let lines = content.trim().split('\n').collect::<Vec<_>>();
 
     (funs[day - 1])(&lines)
 }

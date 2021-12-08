@@ -6,7 +6,7 @@ fn parse(input: Lines) -> Result<Vec<Number>> {
     input
         .iter()
         .filter(|s| !s.is_empty())
-        .map(|line| Ok(i32::from_str_radix(&line, 2)?))
+        .map(|line| Ok(i32::from_str_radix(line, 2)?))
         .collect()
 }
 

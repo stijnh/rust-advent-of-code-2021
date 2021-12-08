@@ -34,12 +34,12 @@ fn population_after_days(mut fish: Population, days: usize) -> u128 {
 }
 
 pub(crate) fn run(lines: Lines) -> Result {
-    let initial = parse_population(&lines[0])?;
+    let initial = parse_population(lines[0])?;
 
     let total = population_after_days(initial.clone(), 80);
     println!("part A: {:?}", total);
 
-    let total = population_after_days(initial.clone(), 256);
+    let total = population_after_days(initial, 256);
     println!("part B: {:?}", total);
 
     Ok(())

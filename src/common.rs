@@ -1,5 +1,5 @@
 pub use anyhow::{anyhow, bail, Context as _, Error};
-pub use itertools::{all, any, enumerate, max, min, zip, Itertools};
+pub use itertools::{all, any, enumerate, max, min, rev, zip, Itertools};
 use lazy_static::lazy_static;
 use regex::Regex;
 use std::cmp::{Ord, Ordering};

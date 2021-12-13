@@ -61,13 +61,13 @@ fn solve_b(lines: Lines) -> Result<usize> {
         }
     }
 
-    scores.sort();
+    scores.sort_unstable();
     Ok(scores[scores.len() / 2])
 }
 
 pub(crate) fn run(lines: Lines) -> Result {
-    println!("part A: {:?}", solve_a(&lines)?);
-    println!("part B: {:?}", solve_b(&lines)?);
+    println!("part A: {:?}", solve_a(lines)?);
+    println!("part B: {:?}", solve_b(lines)?);
 
     Ok(())
 }

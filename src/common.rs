@@ -5,7 +5,7 @@ use regex::Regex;
 use std::cmp::{Ord, Ordering};
 use std::default::Default;
 use std::fmt::Display;
-use std::iter::{Map, Sum};
+use std::iter::{Flatten, Map, Sum};
 pub use std::mem::swap;
 use std::str::FromStr;
 use std::sync::Mutex;
@@ -40,6 +40,15 @@ where
     I::Item: Sum,
 {
     iter.into_iter().sum()
+}
+
+#[allow(dead_code)]
+pub fn flatten<I>(iter: I) -> Flatten<I::IntoIter>
+where
+    I: IntoIterator,
+    I::Item: IntoIterator,
+{
+    iter.into_iter().flatten()
 }
 
 pub fn parse_list<I: FromStr>(line: &str, delim: char) -> Result<Vec<I>>

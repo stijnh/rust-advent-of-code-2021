@@ -11,7 +11,7 @@ fn parse(lines: Lines) -> Result<Array2<i32>> {
     for (i, line) in enumerate(lines) {
         for (j, c) in enumerate(line.chars()) {
             let x = c.to_string().parse()?;
-            ensure!(x >= 0 && x <= 9 && j < N, "invalid character: {:?}", x);
+            ensure!((0..9).contains(&x) && j < N, "invalid character: {:?}", x);
 
             grid[[i, j]] = x;
         }

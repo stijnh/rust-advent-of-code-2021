@@ -72,10 +72,8 @@ fn solve_b(map: ArrayView2<Num>) -> usize {
     }
 
     let mut counts = HashMap::default();
-    for label in labels {
-        if let Some(label) = label {
-            *counts.entry(label).or_default() += 1;
-        }
+    for label in flatten(labels) {
+        *counts.entry(label).or_default() += 1;
     }
 
     counts.values().sorted().rev().take(3).product()

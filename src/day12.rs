@@ -53,7 +53,7 @@ fn count_paths(map: &Map, double_allowed: bool) -> usize {
             let mut visited = state.visited.clone();
             let mut visited_twice = state.visited_twice;
 
-            if is_small(&neighbor) {
+            if is_small(neighbor) {
                 if visited.contains(&&**neighbor) {
                     if !visited_twice {
                         visited_twice = true;

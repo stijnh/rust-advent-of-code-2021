@@ -34,6 +34,15 @@ where
 }
 
 #[allow(dead_code)]
+pub fn find<I, F>(iter: I, fun: F) -> Option<I::Item>
+where
+    I: IntoIterator,
+    F: FnMut(&I::Item) -> bool,
+{
+    iter.into_iter().find(fun)
+}
+
+#[allow(dead_code)]
 pub fn sum<I>(iter: I) -> I::Item
 where
     I: IntoIterator,
@@ -87,11 +96,11 @@ pub fn is_match(pattern: &str, string: &str) -> bool {
 }
 
 #[allow(dead_code)]
-pub fn find<'t>(pattern: &str, string: &'t str) -> Option<regex::Captures<'t>> {
+pub fn find_regex<'t>(pattern: &str, string: &'t str) -> Option<regex::Captures<'t>> {
     compile(pattern).captures(string)
 }
 
 #[allow(dead_code)]
-pub fn find_all<'t>(pattern: &str, string: &'t str) -> regex::CaptureMatches<'static, 't> {
+pub fn find_regex_all<'t>(pattern: &str, string: &'t str) -> regex::CaptureMatches<'static, 't> {
     compile(pattern).captures_iter(string)
 }

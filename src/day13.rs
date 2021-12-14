@@ -1,5 +1,5 @@
 use crate::common::*;
-use ndarray::Array2;
+use ndarray::{s, Array2};
 use recap::Recap;
 use serde::Deserialize;
 
@@ -38,33 +38,15 @@ fn parse_instrs(lines: Lines) -> Result<Vec<Instruction>> {
 }
 
 fn fold_x(grid: &mut Array2<bool>, fold: usize) {
-    let (w, h) = grid.dim();
-
-    for x in fold..w {
-        for y in 0..h {
-            if grid[[x, y]] {
-                grid[[x, y]] = false;
-
-                let x2 = 2 * fold - x;
-                grid[[x2, y]] = true;
-            }
-        }
-    }
+    let (mut lhs, mut rhs) = grid.multi_slice_mut((s![..fold, ..], s![fold + 1.., ..]));
+    lhs |= &rhs.slice(s![..fold; -1, ..]);
+    rhs.fill(false);
 }
 
 fn fold_y(grid: &mut Array2<bool>, fold: usize) {
-    let (w, h) = grid.dim();
-
-    for x in 0..w {
-        for y in fold..h {
-            if grid[[x, y]] {
-                grid[[x, y]] = false;
-
-                let y2 = 2 * fold - y;
-                grid[[x, y2]] = true;
-            }
-        }
-    }
+    let (mut lhs, mut rhs) = grid.multi_slice_mut((s![.., ..fold], s![.., fold + 1..]));
+    lhs |= &rhs.slice(s![.., ..fold;-1]);
+    rhs.fill(false);
 }
 
 fn fold(grid: &mut Array2<bool>, instrs: &[Instruction]) {

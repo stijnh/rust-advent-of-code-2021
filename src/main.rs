@@ -14,6 +14,7 @@ mod day12;
 mod day13;
 mod day14;
 mod day15;
+mod day16;
 
 use common::*;
 use std::env;
@@ -37,6 +38,7 @@ fn main() -> Result {
         day13::run,
         day14::run,
         day15::run,
+        day16::run,
     ];
 
     let mut args = env::args();
